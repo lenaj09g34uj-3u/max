@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Макс ест ватрушку: Исследование феномена | ИРНИТУ Научный пост</title>
+    <style>
+        /* Базовые сбросы */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Основные стили */
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F4A460;
+            --text-color: #333;
+            --light-bg: #FAF3E0;
+            --border-color: #E0C9A6;
+            --spacing-unit: 1rem;
+            --max-width: 800px;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+            padding-bottom: 2rem;
+        }
+        
+        /* Адаптивные контейнеры */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 5vw, 2rem);
+        }
+        
+        /* Заголовки */
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 1.5rem 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            margin: 1.5rem 0 1rem;
+            color: var(--secondary-color);
+        }
+        
+        h3 {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin: 1rem 0 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* Навигация */
+        header {
+            background-color: var(--light-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+            justify-content: center;
+        }
+        
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        nav a:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Основной контент */
+        main {
+            margin-bottom: 2rem;
+        }
+        
+        article {
+            margin-bottom: 2rem;
+        }
+        
+        section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        /* Изображения */
+        figure {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+        
+        figcaption {
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Текст и списки */
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 0.5rem;
+        }
+        
+        ul li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: -0.8rem;
+        }
+        
+        ol li {
+            counter-increment: item;
+        }
+        
+        ol li::before {
+            content: counter(item) ".";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -1.2rem;
+        }
+        
+        /* Боковая панель */
+        aside {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        /* Ссылки */
+        a:not(nav a) {
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--secondary-color);
+        }
+        
+        a:not(nav a):hover {
+            border-bottom-style: solid;
+        }
+        
+        /* Футер */
+        footer {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            :root {
+                --spacing-unit: 0.75rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            aside {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                font-size: 0.95rem;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Макс ест ватрушку: Научный анализ феномена</h1>
+            <nav>
+                <ul>
+                    <li><a href="#intro">Введение</a></li>
+                    <li><a href="#process">Процесс</a></li>
+                    <li><a href="#stages">Этапы</a></li>
+                    <li><a href="#links">Полезные ссылки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <article>
+            <section id="intro">
+                <h2>Введение в ватрушкосъедение</h2>
+                <p>Ватрушка — традиционное славянское изделие из теста с творожной начинкой, известное с древних времён. Однако только в XXI веке был зафиксирован уникальный случай её потребления студентом по имени Макс.</p>
+                
+                <figure>
+                    <img src="max.jpg" alt="Макс откусывает кусок ватрушки, его лицо выражает крайнюю степень концентрации">
+                    <figcaption>Фото 1. Макс в момент принятия решения об оптимальном угле атаки на ватрушку.</figcaption>
+                </figure>
+                
+                <p>Наблюдения показывают, что Макс подходит к процессу с научной тщательностью, характерной для студентов ИРНИТУ. Это не просто приём пищи — это инженерный расчет, эксперимент и получение практических навыков в одном лице.</p>
+                
+                <aside>
+                    <h3>Интересный факт</h3>
+                    <p>Согласно неофициальной статистике кафедры пищевых технологий ИРНИТУ, 87% студентов предпочитают ватрушки с изюмом, но Макс — часть элитных 13%, выбирающих классический вариант.</p>
+                </aside>
+            </section>
+            
+            <section id="process">
+                <h2>Анализ процесса поглощения</h2>
+                <p>После многократных наблюдений (примерно 3 раза в столовой ИРНИТУ) был составлен следующий алгоритм действий Макса:</p>
+                
+                <ol>
+                    <li><strong>Визуальная оценка</strong> — определение оптимальной точки для первого укуса с учётом распределения творога.</li>
+                    <li><strong>Тактильный анализ</strong> — проверка температуры ватрушки и её структурной целостности.</li>
+                    <li><strong>Координация</strong> — синхронизация движений рук и челюстей для минимизации потерь крошек.</li>
+                    <li><strong>Непрерывное потребление</strong> — поддержание оптимального ритма до полного уничтожения объекта.</li>
+                    <li><strong>Финальная оценка</strong> — анализ удовлетворённости и планирование следующего приёма пищи.</li>
+                </ol>
+                
+                <p>Важно отметить, что весь процесс обычно занимает от 1,5 до 3,5 минут в зависимости от размера ватрушки и наличия параллельных задач (например, проверки сообщений в Telegram).</p>
+            </section>
+            
+            <section id="stages">
+                <h2>Этапы трансформации ватрушки</h2>
+                <h3>Метафизические изменения</h3>
+                <p>Ватрушка в руках Макса проходит не только физическую, но и метафизическую трансформацию:</p>
+                
+                <ul>
+                    <li>Из пищевого объекта в источник энергии для мозга</li>
+                    <li>Из кулинарного изделия в мотивационный инструмент</li>
+                    <li>Из простой выпечки в символ студенческой жизни</li>
+                </ul>
+                
+                <h3>Социокультурное значение</h3>
+                <p>Феномен "Макс ест ватрушку" выходит за рамки простого приёма пищи. Это:</p>
+                
+                <ul>
+                    <li>Акт поддержки местных производителей (если ватрушка из столовой ИРНИТУ)</li>
+                    <li>Демонстрация преемственности пищевых традиций</li>
+                    <li>Мини-перформанс в контексте университетской жизни</li>
+                </ul>
+                
+                <p>К сожалению, других фотографий процесса нет, так как съёмочная группа была отвлечена внезапной сессией.</p>
+            </section>
+            
+            <section id="links">
+                <h2>Полезные ссылки для дальнейшего исследования</h2>
+                <p>Для тех, кто хочет глубже изучить тему:</p>
+                
+                <ul>
+                    <li><a href="https://ru.wikipedia.org/wiki/Ватрушка" target="_blank">Ватрушка в Википедии</a> — историческая справка</li>
+                    <li><a href="https://www.istu.edu" target="_blank">Сайт ИРНИТУ</a> — место, где возможны подобные феномены</li>
+                    <li><a href="https://www.gastronom.ru" target="_blank">Рецепты ватрушек</a> — для самостоятельного воспроизведения объекта изучения</li>
+                    <li><a href="https://habr.com/ru/articles/" target="_blank">Статьи о продуктивности</a> — чтобы есть ватрушки и успевать учиться</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+    
+    <footer class="container">
+        <p><strong>Ответственное потребление ватрушек:</strong> Помните, что каждая съеденная ватрушка должна быть осознанно проанализирована и оценена. Не позволяйте ватрушкам контролировать вас — вы контролируете ватрушки.</p>
+        <p>© Научный пост студента ИРНИТУ (не Макса, другого). Все совпадения с реальными событиями и людьми абсолютно случайны и, вероятно, забавны.</p>
+    </footer>
+</body>
+</html>
